@@ -1,0 +1,7 @@
+// curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"learn js\", \"userId\": 1, \"completed\": true}" https://jsonplaceholder.typicode.com/todos
+{
+  "title": "learn js",
+  "userId": 1,
+  "completed": true,
+  "id": 201
+}
