@@ -1,0 +1,7 @@
+// curl --data "userId=1&id=1&title=react&completed=true" https://jsonplaceholder.typicode.com/todos
+{
+  "userId": "1",
+  "id": 201,
+  "title": "react",
+  "completed": "true"
+}
