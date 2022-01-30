@@ -7,7 +7,7 @@
 
 ### Async file reading can result into callback hell.
 
-<!-- what are the benefits of async -->
+## what are the benefits of async
 
 ### Synchronous reading of files stop the flow of program and in cases of large files it can feel like that program is stuck.
 
