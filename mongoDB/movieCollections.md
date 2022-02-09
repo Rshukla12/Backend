@@ -59,5 +59,5 @@ db.movies.find({}, { movie_name: 1, _id: 0, production_year: 1 }).sort({ product
 
 remove movie genre from the first 10 movies in query 10.
 ```
-
+db.movies.find( { }, { movie_name: 1, _id: 0, production_year: 1, movie_genres: 1 }).sort({ production_year: -1,movie_name: 1}).limit(10).forEach( function(doc){ db.movies.updateOne({movie_name: doc.movie_name}, {$unset: { movie_genres: "" }})} )
 ```
