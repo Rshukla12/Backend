@@ -93,13 +93,15 @@ router.get("/:userId/tweets", paramValidator.userIdValidator, validatorMiddlewar
         // pagination
         const pageNo = req.query.page || 1;
         const perPage = req.query.per_page || 10; 
+        
+        const noOfTweets = await Tweet.find({ user_id: req.params.userId }).count();
+        if ( !noOfTweets ) return res.status(404).json({msg: "No tweets were made by user!"});
+
         const skip = pageNo <= 0 ? 0 : ( pageNo - 1 ) * perPage;
-
+        
         const tweets = await Tweet.find({ user_id: req.params.userId }).skip(skip).limit(perPage);
-
-        if ( !tweets || !tweets.length ) return res.status(404).json({msg: "No tweets were made by user!"});
-
-        res.status(200).json(tweets);
+        
+        res.status(200).json({"no of tweets by user": noOfTweets, tweets: tweets});
     } catch ( err ) {
         res.status(500).json({ msg: "something went wrong!" });
     }
