@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const User = require("./user.model");
 
 const tweetSchema = mongoose.Schema({
     title: {
@@ -16,12 +15,11 @@ const tweetSchema = mongoose.Schema({
         }
     ],
     user_id: {
-        type: mongoose.Types.ObjectId,
-        ref: User,
+        type: String,
         required: true
     }
 });
 
-const Tweet = mongoose.Model("Tweet", tweetSchema);
+const Tweet = mongoose.model("Tweet", tweetSchema);
 
 module.exports = Tweet;
