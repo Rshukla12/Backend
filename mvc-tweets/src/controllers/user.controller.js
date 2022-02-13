@@ -8,7 +8,8 @@ const getAllUsers = async (req, res) => {
         const skip = pageNo <= 0 ? 0 : ( pageNo - 1 ) * perPage;
         const users = await User.find().skip(skip).limit(perPage);
         if ( !users.length ) return res.status(404).json({msg: "No users found!"});
-        res.status(200).json(users);
+        // res.status(200).json(users);
+        res.render("pages/user", {users: users});
     } catch ( err ) {
         res.status(500).json({ msg: "something went wrong!" });
     }
@@ -78,23 +79,24 @@ const deleteUser = async (req, res) => {
 
 const getTweetsByUser = async(req, res) => {
     try {
-        const doesUserExist = await User.find({
+        const user = await User.find({
             _id: req.params.userId
         });
-        if ( !doesUserExist ) return res.status(404).json({msg: "User not found!"});
+        if ( !user ) return res.status(404).json({msg: "User not found!"});
         
         // pagination
         const pageNo = req.query.page || 1;
         const perPage = req.query.per_page || 10; 
         
         const noOfTweets = await Tweet.find({ user_id: req.params.userId }).count();
-        if ( !noOfTweets ) return res.status(404).json({msg: "No tweets were made by user!"});
+        if ( !noOfTweets || !user.length  ) return res.status(404).json({msg: "No tweets were made by user!"});
 
         const skip = pageNo <= 0 ? 0 : ( pageNo - 1 ) * perPage;
         
         const tweets = await Tweet.find({ user_id: req.params.userId }).skip(skip).limit(perPage);
         
-        res.status(200).json({"no of tweets by user": noOfTweets, tweets: tweets});
+        // res.status(200).json({"no of tweets by user": noOfTweets, tweets: tweets});
+        res.render("pages/userTweets", {user: user[0], tweets: tweets, noOfTweets: noOfTweets});
     } catch ( err ) {
         res.status(500).json({ msg: "something went wrong!" });
     }

@@ -12,7 +12,8 @@ const getAllTweets = async (req, res) => {
 
         if ( !tweets.length ) return res.status(404).json({msg: "No tweets were found!"});
         
-        res.status(200).json(tweets);
+        // res.status(200).json(tweets);
+        res.render("pages/index", {tweets: tweets});
     } catch ( err ) {
         res.status(500).json({msg: "Something went wrong!"});
     }

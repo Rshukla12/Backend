@@ -9,6 +9,9 @@ const PORT = 5000;
 
 const app = express();
 
+app.set("view engine", "ejs");
+
+app.use( express.static("./public") );
 app.use(express.json());
 app.use( cors() );
 
