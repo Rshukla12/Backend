@@ -11,11 +11,11 @@ const authenticate = async ( req, res, next ) => {
         try {
             userData = jwt.verify( token, process.env.SECRET );
         } catch (err) {
-            res.status(401).json({ status: "failed", msg: "Invalid or expired token!" });
+            return res.status(401).json({ status: "failed", msg: "Invalid or expired token!" });
         }
 
         const user = await User.findById(userData.id);
-        if ( !user ) res.status(401).json({ status: "failed", msg: "Invalid or expired token!" });
+        if ( !user ) return res.status(401).json({ status: "failed", msg: "Invalid or expired token!" });
         req.user = user;
         next();
     } catch ( err ) {

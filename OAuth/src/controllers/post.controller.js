@@ -38,10 +38,10 @@ const updatePost = async (req, res) => {
     try {
 
         const post = await Post.findById(req.params.id);
-        if ( !post ) res.status(404).json({ msg: "Post does not exists!" });
+        if ( !post ) return res.status(404).json({ msg: "Post does not exists!" });
 
-        // authorization check
-        if ( post.author_id !== req.user._id ) res.status(403).json({ msg: "You are not authorized to edit this post!" });
+        // authorization check        
+        if ( post.author_id.toString() !== req.user._id.toString() ) return res.status(403).json({ msg: "You are not authorized to edit this post!" });
 
         const update = {};
 
@@ -65,10 +65,10 @@ const deletePost = async (req, res) => {
     try {
         
         const post = await Post.findById(req.params.id);
-        if ( !post ) res.status(404).json({ msg: "Post does not exists!" });
+        if ( !post ) return res.status(404).json({ msg: "Post does not exists!" });
 
         // authorization check
-        if ( post.author_id !== req.user._id ) res.status(403).json({ msg: "You are not authorized to delete this post!" });
+        if ( post.author_id.toString() !== req.user._id.toString() ) return res.status(403).json({ msg: "You are not authorized to delete this post!" });
 
         const result = await Post.findByIdAndDelete(req.params.id);
         if ( !result  ) return res.status(500).json({ msg: "Something went wrong while updating the post!" });

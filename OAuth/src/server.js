@@ -5,6 +5,7 @@ const passport = require("passport");
 const connect = require("./config/db.config.js");
 const authRouter = require("./routes/auth.route")
 const postRouter = require("./routes/post.route")
+const userRouter = require("./routes/user.route")
 
 const app = express();
 const port = 3000;
@@ -25,6 +26,7 @@ passport.deserializeUser(function(id, done) {
 
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 
 const start = async () => {

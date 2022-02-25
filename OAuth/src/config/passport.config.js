@@ -25,6 +25,8 @@ passport.use(new GoogleStrategy({
                 user.token = token;
                 done( null, user );
             }
+            const token = createToken( user );
+            user.token = token;
             done( null, user );
         } catch ( err ) {
             done( err, null );
