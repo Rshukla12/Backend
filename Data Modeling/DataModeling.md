@@ -27,7 +27,7 @@ There are two valid ways to represent one to one relationship in MongoDB
 ```
 
 ### create an ERD / CRD diagram for a blog application
-![ERD Diagram for blog](/Blog_ERD.jpg?raw=true "ERD")
+![ERD Diagram for blog](./Blog_ERD.jpg?raw=true "ERD")
 
 ### create and design schema for each collection
 
