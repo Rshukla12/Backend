@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Scroll</title>
+    <style>
+        #main {
+            height: 95vh;
+            width: 99vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #container {
+            width: 30rem;
+            height: 70vh;
+            border: 1px solid #328ed3;
+            border-radius: 5px;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            gap: 5%;
+            align-items: center;
+            padding: 2% 0%;
+        }
+        .box {
+            width: 90%;
+            padding: 2%;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="container">
+        </div>
+    </div>
+    <script>
+        let count = 1;
+        const throttler = (throttlingTime, throttledFunction) => {
+            let prevTime = 0;
+            return () => {
+                if ( Date.now() - prevTime > throttlingTime ){
+                    prevTime = Date.now();
+                    throttledFunction();
+                }
+            }
+        }
+
+        const handleAddElements = () => {
+            const container = document.getElementById("container");
+            const frag = new DocumentFragment();
+            for ( let i = 0; i < 25; i++ ){
+                const doc = document.createElement('div');
+                doc.className = 'box';
+                doc.innerHTML = `Masai student - ${count++}`;
+                frag.appendChild(doc);
+                console.log(count);
+            }
+            container.appendChild(frag);
+        }
+
+        const handleScroll = () => {
+            const container = document.getElementById("container");
+            if ( container.scrollTop + container.clientHeight >= 0.95 * container.scrollHeight ){
+                handleAddElements();
+            }
+        }
+
+        const throttledHandleScroll = throttler(400, handleScroll);
+
+        const container = document.getElementById("container");
+        handleAddElements();
+        container.onscroll = handleScroll;
+    </script>
+</body>
+</html>
