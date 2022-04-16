@@ -117,3 +117,13 @@
 //     console.log(err)
 // })
 
+
+
+// let word = "this is not passed to outer";
+// const outer = () => {
+//     console.log( word );
+// }
+
+// outer();
+// word = "this is changed!"
+// outer();
