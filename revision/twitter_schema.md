@@ -28,4 +28,4 @@ topic_name: string, unique
 ```
 
 # Image of Tweet Schema ERD
-![ERD]("./Screenshots/Tweet_ERD.jpg")
+![ERD](./Screenshots/Tweet_ERD.jpg)
